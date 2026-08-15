@@ -1,0 +1,40 @@
+# Pronoun-scan allowlist for static-checks.sh check 7a.
+#
+# 7a is deliberately BROAD: it flags every word-boundary he/him/his in shipped
+# prose, because the de-personalization artifacts it exists to catch
+# ("He can ask", "he sees 4", "his edit", "never ask him") sit nowhere near the
+# words "partner" or "user" — narrowing the pattern would destroy its recall.
+#
+# The cost of breadth is that legitimate third-party legal prose ("the data
+# subject exercises his rights", "he or she") also trips it. Tickets 04-06
+# require a VERBATIM import commit of unmodified upstream files that carry an
+# Apache-2.0 §4(b) notice, and toolchain.md requires static checks to pass on
+# every commit. This file is the escape hatch, so that gate never forces an
+# edit to vendored license-bearing text.
+#
+# Three ways out, in order of preference:
+#
+# 1. Inline marker — put `<!-- static-checks: allow-pronoun -->` ON the offending
+#    line. Use for files WE author, where the exemption should be visible at the
+#    point of use rather than in a list nobody reads.
+#
+# 2. Content-scoped entry (this file) — `<path-prefix>::<substring>` exempts
+#    only lines under that path that contain that substring. Prefer this for
+#    vendored files: it exempts the sentence you actually inspected instead of
+#    the whole file. Example:
+#        skills/tabular-review/::the data subject exercises his
+#
+# 3. Bare path prefix (this file) — exempts EVERY line in matching files.
+#    Reserve it for verbatim vendored files that must not be edited at all,
+#    and understand what it costs: allowlisting a whole skill for one "his
+#    rights" also stops this check from ever catching a real de-personalization
+#    artifact anywhere else in that file. Example:
+#        skills/amendment-history/SKILL.md
+#
+# An entry that exempts nothing FAILS the build. That is deliberate: a stale
+# entry is a hole in the check that nobody notices. Delete it or fix it.
+#
+# Adding an entry here is a claim that the pronouns it covers are third-party
+# legal prose, not references to the user. Say which in the commit message.
+
+# (no entries yet — tickets 04-06 add vendored paths as needed)

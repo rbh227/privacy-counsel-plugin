@@ -1,0 +1,14 @@
+{
+  "name": "privacy-counsel-marketplace",
+  "description": "Marketplace for the privacy-counsel plugin: partner-mode workflows for senior privacy, AI, and technology lawyers.",
+  "owner": {
+    "name": "Raphael Haytene"
+  },
+  "plugins": [
+    {
+      "name": "privacy-counsel",
+      "source": "./",
+      "description": "Partner-mode legal plugin for a senior privacy/AI/technology practice."
+    }
+  ]
+}

@@ -27,9 +27,34 @@ lives in `NOTICE`; the licence text lives in `LICENSE` (ours) and
 | `skills/amendment-history` | `commercial-legal/skills/amendment-history` | modified |
 | `skills/reg-feed-watcher` | `regulatory-legal/skills/reg-feed-watcher` | SKILL.md modified; `references/` verbatim |
 
+## Original work
+
+These are ours, written for this plugin, no upstream ancestor:
+
+| Skill |
+|---|
+| `skills/challenge` |
+| `skills/company-understanding` |
+| `skills/deal-judgment` |
+| `skills/partner-briefing` |
+| `skills/partner-writing` |
+| `skills/tight-writing` |
+
+## How this is enforced
+
 Every file marked modified carries a §4(b) notice at its head saying what
-changed. `scripts/static-checks.sh` check 9 enforces that: a vendored skill
-without a notice, or a notice on a skill not listed here, fails the build.
+changed. `scripts/static-checks.sh` check 9 enforces three things:
+
+1. Every skill listed as vendored carries its notice.
+2. Every skill carrying a notice is listed as vendored.
+3. **Every shipped skill appears in one of the two tables above.**
+
+The third rule is the one that matters, and an earlier version of the check
+lacked it. Comparing "declared vendored" against "carries a notice" is
+circular: a skill imported with neither a ledger row nor a notice is absent
+from both sets, the two sets still agree, and the check passes while the
+attribution is missing. Requiring every skill to be *classified* is what
+makes silence fail.
 
 ## Recovering pristine upstream
 

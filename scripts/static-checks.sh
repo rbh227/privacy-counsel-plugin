@@ -129,7 +129,9 @@ fi
 #    table does not list means someone imported code and never recorded it.
 [ -f LICENSE ] || err "no root LICENSE (Apache-2.0 required)"
 [ -f NOTICE ] || err "no NOTICE file"
-listed="$(sed -n 's/^| `skills\/\([a-z-]*\)` .*/\1/p' VENDORED.md | sort -u)"
+# Vendored rows carry an upstream path in a second backticked cell; the
+# originals table has a single column. Match on that shape difference.
+listed="$(sed -n 's/^| `skills\/\([a-z-]*\)` | `.*/\1/p' VENDORED.md | sort -u)"
 noticed="$(grep -rl "MODIFIED from anthropics/claude-for-legal" skills 2>/dev/null \
            | sed 's|^skills/*||; s|/SKILL\.md$||' | sort -u)"
 for s in $listed; do
@@ -141,6 +143,18 @@ for s in $noticed; do
   case "
 $listed" in *"
 $s"*) ;; *) err "skills/$s carries a vendored-code notice but VENDORED.md does not list it" ;; esac
+done
+#    The rule that stops silence passing: every shipped skill must be
+#    CLASSIFIED, vendored or original. Comparing the two declared sets alone
+#    is circular — a skill imported with neither a ledger row nor a notice is
+#    in neither set, the sets still agree, and attribution goes missing
+#    quietly. Being undeclared is the failure.
+declared="$(printf '%s\n%s\n' "$listed" "$(sed -n 's/^| `skills\/\([a-z-]*\)` |$/\1/p' VENDORED.md)" | sed '/^$/d' | sort -u)"
+for d in skills/*/; do
+  s="$(basename "$d")"
+  case "
+$declared" in *"
+$s"*) ;; *) err "skills/$s is not classified in VENDORED.md — declare it vendored or original" ;; esac
 done
 
 # 8. Harness self-test — pure bash, no tokens. An assertion helper that

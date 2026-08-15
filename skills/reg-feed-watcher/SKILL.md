@@ -112,6 +112,15 @@ error to notice afterwards — the gap is invisible by construction.
 
 So: one line per source, each with its own last-successful-pull timestamp.
 A source that failed keeps its old timestamp and gets re-pulled next time.
+
+**Take each source's new lower bound BEFORE you query it, not after.** If
+you snapshot a feed at 10:00, it publishes an item at 10:01, and you then
+record 10:02 as the cursor, that item is skipped forever — it was never in
+your snapshot and it is older than your next query's start. Record the
+timestamp taken before the request, and only after the request succeeds.
+Prefer a high-water mark the source itself provides where one exists.
+Overlap the window by a margin and de-duplicate on a stable item ID:
+seeing an item twice is free, and missing one is invisible.
 Say so in the digest — "EDPB, CNIL and ICO pulled; DPC and three US state AGs
 did not respond and were not advanced" — because a partner reading a
 materiality-filtered digest has no other way to know the sweep was partial.

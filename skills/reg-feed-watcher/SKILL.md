@@ -138,7 +138,7 @@ Each item gets a materiality tier per `../../profile/privacy-playbook.md`:
 |---|---|
 | Final rule | Usually "always material" |
 | Proposed rule / NPRM | Usually "review-worthy" — and always log comment deadline |
-| ANPR (Advance Notice of Proposed Rulemaking) | Review-worthy for **strategy**, not compliance — no imposed requirements yet, but signals direction and carries a real comment deadline. Log the comment deadline. Route to `the corresponding skill` only as a pre-positioning analysis, not as a gap-closure diff. |
+| ANPR (Advance Notice of Proposed Rulemaking) | Review-worthy for **strategy**, not compliance — no imposed requirements yet, but signals direction and carries a real comment deadline. Log the comment deadline. Route to `reg-gap-analysis` only as a pre-positioning analysis, not as a gap-closure diff. |
 | RFI (Request for Information) | Same as ANPR — pre-rule, no compliance obligation, but comment deadline is real and direction-signaling is the value. |
 | Enforcement action | Sector match → material; related-practice match → review-worthy; neither → FYI or skip |
 | Guidance | Review-worthy |
@@ -150,7 +150,7 @@ Each item gets a materiality tier per `../../profile/privacy-playbook.md`:
 - **Do not** classify an ANPR / RFI as "always material" — the compliance impact is zero until a rule issues.
 - **Do** classify as review-worthy if any of the issue areas in the notice touch the watchlist's always-material categories (e.g., an ANPR on open banking in a fintech watchlist).
 - **Do** log the comment deadline to `<state root>/comment-tracker.yaml` with `item_type: ANPR` or `item_type: RFI` so the downstream tracker can distinguish these from compliance gaps.
-- **Do** include in the digest entry a line that says explicitly: "Pre-rule. Comment deadline [date]. Route to `the corresponding skill` only as a pre-positioning analysis (no compliance gap yet)." This primes the policy-diff skill to use its compressed pre-positioning branch rather than a full gap-closure diff.
+- **Do** include in the digest entry a line that says explicitly: "Pre-rule. Comment deadline [date]. Route to `reg-gap-analysis` only as a pre-positioning analysis (no compliance gap yet)." This primes the policy-diff skill to use its compressed pre-positioning branch rather than a full gap-closure diff.
 - **Route to the comment-tracker, not the gap-tracker.** Comment-decision items are not compliance gaps; they belong in the comment tracker, and `gap-surfacer` uses the `comment-decision` `gap_type` (or declines to ingest, if the team routes these separately).
 
 **NPRM comment deadline handling:**
@@ -238,7 +238,7 @@ Format on disk matches the chat format exactly (below). Markdown renders well in
 ---
 
 **Last check updated to:** [timestamp]
-**Comment tracker:** [N] NPRMs with open comment decisions — run the corresponding skill to review
+**Comment tracker:** [N] NPRMs with open comment decisions — run `reg-gap-analysis` to review
 
 ---
 

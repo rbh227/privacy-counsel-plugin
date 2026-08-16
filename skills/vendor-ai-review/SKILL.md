@@ -319,8 +319,8 @@ End with the next-steps decision tree per `../../profile/privacy-playbook.md` `#
 
 ## What this skill does not do
 
-- It doesn't review the DPA provisions of the same agreement — run
-  `the dpa-review skill`, for that.
+- It doesn't review the DPA provisions of the same agreement — `dpa-review`
+  does that.
 - It doesn't decide whether to accept terms outside the fallbacks. It routes those
   per the escalation table in `../../profile/privacy-playbook.md`.
 - It doesn't evaluate vendor security posture beyond what's in the agreement —

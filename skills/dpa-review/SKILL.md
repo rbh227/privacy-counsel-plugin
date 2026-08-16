@@ -21,9 +21,8 @@ with natural-language skill references, mutable state moved to ~/.claude/privacy
 4. Run privacy policy consistency check.
 5. Output: review memo with redlines. Save per house style.
 
-```
-the dpa-review skill customer-dpa.pdf
-```
+Triggered from plain language — "take a look at this DPA", "is this DPA
+okay" — with the document pasted or attached.
 
 ---
 

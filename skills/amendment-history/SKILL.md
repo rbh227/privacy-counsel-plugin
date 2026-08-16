@@ -43,18 +43,12 @@ controlling language.
 
 ## Examples
 
-```
-the corresponding skill acme-msa.pdf amendment-1.pdf amendment-2.pdf
-```
+Triggered from plain language — "how did this clause change across the
+amendments?", "trace the indemnity through these documents" — with the base
+agreement and its amendments pasted or attached together.
 
-```
-the corresponding skill --provision indemnity
-```
-
-```
-the corresponding skill
-[paste agreement and amendment text]
-```
+Naming a provision ("trace the indemnity") runs the single-provision trace;
+asking generally ("what changed over time") runs the full summary.
 
 ---
 
